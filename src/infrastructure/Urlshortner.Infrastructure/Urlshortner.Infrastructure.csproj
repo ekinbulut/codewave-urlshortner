@@ -11,7 +11,10 @@
       <Folder Include="Data\Entities\" />
       <Folder Include="Migrations\" />
       <Folder Include="Repositories\" />
-      <Folder Include="Services\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="StackExchange.Redis" Version="2.7.27" />
     </ItemGroup>
 
 </Project>

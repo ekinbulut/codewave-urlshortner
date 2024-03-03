@@ -5,7 +5,7 @@ using UrlShortner.Application.Interfaces;
 namespace UrlShortner.Api.Controllers;
 
 [ApiController]
-[Route("api/v1")]
+[Route("")]
 public class UrlShortenerController : ControllerBase
 {
     private readonly IUrlShortenerService _urlShortenerService;
@@ -15,7 +15,7 @@ public class UrlShortenerController : ControllerBase
         _urlShortenerService = urlShortenerService;
     }
 
-    [HttpPost("shorten")]
+    [HttpPost("api/v1/shorten")]
     public async Task<IActionResult> ShortenUrl([FromBody] CreateShortUrlRequest createShortUrlRequest)
     {
         var longUrl = createShortUrlRequest.LongUrl;
