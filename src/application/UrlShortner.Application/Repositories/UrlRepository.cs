@@ -7,7 +7,7 @@ namespace UrlShortner.Application.Repositories;
 
 public class UrlRepository : IUrlRepository
 {
-    private IRedisService _redisService;
+    private readonly IRedisService _redisService;
 
     public UrlRepository(IRedisService redisService)
     {
@@ -16,27 +16,20 @@ public class UrlRepository : IUrlRepository
 
     public async Task<Url?> GetByUrlAsync(string longUrl)
     {
-        var db = _redisService.GetDb();
-        var value = db.StringGet(longUrl);
-
-        if (value.HasValue)
-        {
-            var urlString = (string)value;
-            return JsonConvert.DeserializeObject<Url>(urlString);
-        }
-
-        return null;
+        var value = await _redisService.GetValueAsync(longUrl);
+        return string.IsNullOrEmpty(value) ? null : JsonConvert.DeserializeObject<Url>(value);
     }
 
     public async Task AddAsync(Url url)
     {
-        var db = _redisService.GetDb();
         var value = JsonConvert.SerializeObject(url, Formatting.Indented);
-        db.StringSet(url.LongUrl, value);
+        await _redisService.SetValueAsync(url.LongUrl, value);
+        await _redisService.SetValueAsync(url.ShortUrl, value);
     }
 
-    public async Task<Url> GetByShortUrlAsync(string shortUrl)
+    public async Task<Url?> GetByShortUrlAsync(string shortUrl)
     {
-        throw new NotImplementedException();
+        var value = await _redisService.GetValueAsync(shortUrl);
+        return string.IsNullOrEmpty(value) ? null : JsonConvert.DeserializeObject<Url>(value);
     }
 }

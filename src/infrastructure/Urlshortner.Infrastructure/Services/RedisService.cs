@@ -4,25 +4,43 @@ namespace Urlshortner.Infrastructure.Services;
 
 public interface IRedisService
 {
-    IDatabase GetDb(int db = -1);
+    Task<bool> SetValueAsync(string key, string value);
+    Task<string> GetValueAsync(string key);
 }
 
-public class RedisService : IDisposable, IRedisService
+public class RedisService : IRedisService
 {
-    private readonly ConnectionMultiplexer _redis;
+    
+    private static Lazy<Task<ConnectionMultiplexer>> _lazyConnection;
 
     public RedisService(string connectionString)
     {
-        _redis = ConnectionMultiplexer.Connect(connectionString);
+        _lazyConnection = new Lazy<Task<ConnectionMultiplexer>>(() => ConnectAsync(connectionString));
+    }
+    
+    private static async Task<ConnectionMultiplexer> ConnectAsync(string connectionString)
+    {
+        return await ConnectionMultiplexer.ConnectAsync(connectionString);
+    }
+    
+    private async Task<IDatabase> GetDatabaseAsync()
+    {
+        var connection = await _lazyConnection.Value;
+        return connection.GetDatabase();
+    }
+    
+    // Asynchronous operation: Set value
+    public async Task<bool> SetValueAsync(string key, string value)
+    {
+        var database = await GetDatabaseAsync();
+        return await database.StringSetAsync(key, value);
     }
 
-    public IDatabase GetDb(int db = -1)
+    // Asynchronous operation: Get value
+    public async Task<string> GetValueAsync(string key)
     {
-        return _redis.GetDatabase(db);
+        var database = await GetDatabaseAsync();
+        return await database.StringGetAsync(key);
     }
-
-    public void Dispose()
-    {
-        _redis?.Dispose();
-    }
+    
 }

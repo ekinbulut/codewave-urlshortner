@@ -35,9 +35,9 @@ public class UrlShortnerService: IUrlShortenerService
         return response;
     }
 
-    public async Task<string> GetLongUrlAsync(string shortUrl)
+    public async Task<GetLongUrlResponse> GetLongUrlAsync(string shortUrl)
     {
         var url = await _urlRepository.GetByShortUrlAsync(shortUrl);
-        return url?.LongUrl;
+        return new GetLongUrlResponse(){ RedirectUrl = url.LongUrl};
     }
 }
