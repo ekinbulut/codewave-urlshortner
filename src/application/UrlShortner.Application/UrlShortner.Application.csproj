@@ -8,10 +8,15 @@
 
     <ItemGroup>
       <ProjectReference Include="..\..\domain\UrlShortner.Domain\UrlShortner.Domain.csproj" />
+      <ProjectReference Include="..\..\infrastructure\Urlshortner.Infrastructure\Urlshortner.Infrastructure.csproj" />
     </ItemGroup>
 
     <ItemGroup>
       <Folder Include="Exceptions\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     </ItemGroup>
 
 </Project>
