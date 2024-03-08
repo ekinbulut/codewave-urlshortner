@@ -13,6 +13,8 @@ public class Program
         builder.Services.AddServices();
         builder.Services.AddAuthorization();
         builder.Services.AddMvc();
+        builder.Services.UseOpenTelemetry();
+        
 
         var connectionString = builder.Configuration.GetConnectionString("Redis");
         builder.Services.AddInfrastructure(connectionString);
@@ -30,6 +32,7 @@ public class Program
             app.UseSwaggerUI();
         }
 
+        app.UseOpenTelemetryPrometheusScrapingEndpoint();
         app.UseLogging();
         app.UseErrorHandling();
         app.UseHttpsRedirection();
