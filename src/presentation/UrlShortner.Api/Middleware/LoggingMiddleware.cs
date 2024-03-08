@@ -23,12 +23,3 @@ public class LoggingMiddleware
         _logger.LogInformation($"Sending response: {context.TraceIdentifier} - {context.Response.StatusCode}");
     }
 }
-
-public static class LoggingMiddlewareExtensions
-{
-    public static IApplicationBuilder UseLogging(
-        this IApplicationBuilder builder)
-    {
-        return builder.UseMiddleware<LoggingMiddleware>();
-    }
-}
