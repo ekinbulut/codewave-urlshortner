@@ -1,12 +1,7 @@
 using StackExchange.Redis;
+using Urlshortner.Infrastructure.Interfaces;
 
 namespace Urlshortner.Infrastructure.Services;
-
-public interface IRedisService
-{
-    Task<bool> SetValueAsync(string key, string value);
-    Task<string> GetValueAsync(string key);
-}
 
 public class RedisService : IRedisService
 {

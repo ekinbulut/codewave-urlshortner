@@ -1,6 +1,7 @@
 using Newtonsoft.Json;
 using UrlShortner.Application.Interfaces;
 using UrlShortner.Domain.Entities;
+using Urlshortner.Infrastructure.Interfaces;
 using Urlshortner.Infrastructure.Services;
 
 namespace UrlShortner.Application.Repositories;

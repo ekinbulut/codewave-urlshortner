@@ -1,6 +1,7 @@
 using UrlShortner.Application.Interfaces;
 using UrlShortner.Application.Repositories;
 using UrlShortner.Application.Services;
+using Urlshortner.Infrastructure.Interfaces;
 using Urlshortner.Infrastructure.Services;
 
 namespace UrlShortner.Api.Helpers;
