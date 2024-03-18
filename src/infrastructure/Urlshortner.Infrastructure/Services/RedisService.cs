@@ -1,5 +1,5 @@
 using StackExchange.Redis;
-using Urlshortner.Infrastructure.Interfaces;
+using UrlShortner.Domain.Interfaces;
 
 namespace Urlshortner.Infrastructure.Services;
 

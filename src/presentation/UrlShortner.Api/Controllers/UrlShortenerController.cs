@@ -1,6 +1,7 @@
+using System.Net;
 using Microsoft.AspNetCore.Mvc;
 using UrlShortner.Application.DTOs.Requests;
-using UrlShortner.Application.Interfaces;
+using UrlShortner.Application.Handlers;
 
 namespace UrlShortner.Api.Controllers;
 
@@ -8,29 +9,33 @@ namespace UrlShortner.Api.Controllers;
 [Route("")]
 public class UrlShortenerController : ControllerBase
 {
-    private readonly IUrlShortenerService _urlShortenerService;
+    
+    private readonly IUrlShortnerControllerHandler _controllerHandler;
 
-    public UrlShortenerController(IUrlShortenerService urlShortenerService)
+    public UrlShortenerController(IUrlShortnerControllerHandler controllerHandler)
     {
-        _urlShortenerService = urlShortenerService;
+        _controllerHandler = controllerHandler;
     }
 
     [HttpPost("api/v1/shorten")]
     public async Task<IActionResult> ShortenUrl([FromBody] CreateShortUrlRequest createShortUrlRequest)
     {
-        var longUrl = createShortUrlRequest.LongUrl;
-        var shortUrl = await _urlShortenerService.ShortenUrlAsync(longUrl);
+        var shortUrl = await _controllerHandler.ShortUrlAsync(createShortUrlRequest);
         return Ok(shortUrl);
     }
 
     [HttpGet("{shortUrl}")]
+    [ProducesResponseType((int)HttpStatusCode.OK)]
+    [ProducesResponseType((int)HttpStatusCode.Redirect)]
+    [ProducesResponseType((int)HttpStatusCode.BadRequest)]
     public async Task<IActionResult> GetLongUrl(string shortUrl)
     {
-        var longUrl = await _urlShortenerService.GetLongUrlAsync(shortUrl);
-        if (longUrl == null)
+        var response = await _controllerHandler.GetLongUrlAsync(shortUrl);
+        if (response == null)
         {
             return NotFound();
         }
-        return Ok(longUrl);
+        
+        return Ok(response);
     }
 }

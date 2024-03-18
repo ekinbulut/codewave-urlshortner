@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace UrlShortner.Application.DTOs.Requests;
 
-public class CreateShortUrlRequest
+public class CreateShortUrlRequest : BaseRequest
 {
     [Required]
     [Url]

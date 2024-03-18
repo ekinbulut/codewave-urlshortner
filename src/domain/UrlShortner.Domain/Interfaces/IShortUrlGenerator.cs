@@ -1,4 +1,4 @@
-namespace UrlShortner.Application.Interfaces;
+namespace UrlShortner.Domain.Interfaces;
 
 public interface IShortUrlGenerator
 {

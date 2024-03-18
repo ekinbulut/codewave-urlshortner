@@ -1,14 +1,14 @@
 using UrlShortner.Application.DTOs.Responses;
 using UrlShortner.Application.Interfaces;
-using UrlShortner.Application.Repositories;
 using UrlShortner.Domain.Entities;
+using UrlShortner.Domain.Interfaces;
 
 namespace UrlShortner.Application.Services;
 
 public class UrlShortnerService: IUrlShortenerService
 {
     private readonly IUrlRepository _urlRepository;
-    private IShortUrlGenerator _shortUrlGenerator;
+    private readonly IShortUrlGenerator _shortUrlGenerator;
 
     public UrlShortnerService(IShortUrlGenerator shortUrlGenerator, IUrlRepository urlRepository)
     {
@@ -31,7 +31,7 @@ public class UrlShortnerService: IUrlShortenerService
         url = new Url { LongUrl = longUrl, ShortUrl = shortUrl };
         await _urlRepository.AddAsync(url);
         response.ShortUrl = shortUrl;
-
+        
         return response;
     }
 

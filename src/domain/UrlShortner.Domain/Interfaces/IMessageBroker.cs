@@ -1,4 +1,4 @@
-namespace Urlshortner.Infrastructure.Interfaces;
+namespace UrlShortner.Domain.Interfaces;
 
 public interface IMessageBroker
 {

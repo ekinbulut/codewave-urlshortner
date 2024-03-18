@@ -1,4 +1,4 @@
-using UrlShortner.Application.Interfaces;
+using UrlShortner.Domain.Interfaces;
 
 namespace UrlShortner.Application.Services;
 

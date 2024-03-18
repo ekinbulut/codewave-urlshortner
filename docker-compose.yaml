@@ -4,3 +4,18 @@ services:
     image: redis:latest
     ports:
       - "6379:6379"
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    container_name: 'rabbitmq'
+    ports:
+      - 5672:5672  # RabbitMQ port for communication
+      - 15672:15672  # RabbitMQ management UI port
+    volumes:
+      - ~/rabbitmq/data/:/var/lib/rabbitmq/  # Map data folder
+      - ~/rabbitmq/log/:/var/log/rabbitmq/  # Map log folder
+    networks:
+      - rabbitmq_go_net
+
+networks:
+  rabbitmq_go_net:
+    driver: bridge

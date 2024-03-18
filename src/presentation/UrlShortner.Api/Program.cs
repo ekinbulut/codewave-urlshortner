@@ -16,8 +16,9 @@ public class Program
         builder.Services.UseOpenTelemetry();
         
 
-        var connectionString = builder.Configuration.GetConnectionString("Redis");
-        builder.Services.AddInfrastructure(connectionString);
+        
+        
+        builder.Services.AddInfrastructure(builder.Configuration);
 
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
         builder.Services.AddEndpointsApiExplorer();

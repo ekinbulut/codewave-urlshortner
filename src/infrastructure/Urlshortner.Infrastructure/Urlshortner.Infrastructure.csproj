@@ -9,6 +9,7 @@
     <ItemGroup>
       <Folder Include="Data\DbContext\" />
       <Folder Include="Data\Entities\" />
+      <Folder Include="Interfaces\" />
       <Folder Include="Migrations\" />
       <Folder Include="Repositories\" />
     </ItemGroup>
@@ -21,6 +22,10 @@
       <PackageReference Include="OpenTelemetry.Instrumentation.AspNetCore" Version="1.7.1" />
       <PackageReference Include="RabbitMQ.Client" Version="6.8.1" />
       <PackageReference Include="StackExchange.Redis" Version="2.7.27" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\domain\UrlShortner.Domain\UrlShortner.Domain.csproj" />
     </ItemGroup>
 
 </Project>

@@ -1,13 +1,13 @@
 using System.Text;
 using Newtonsoft.Json;
 using RabbitMQ.Client;
-using Urlshortner.Infrastructure.Interfaces;
+using UrlShortner.Domain.Interfaces;
 
 namespace Urlshortner.Infrastructure.Services;
 
 public class MessageBroker : IMessageBroker
 {
-    private ConnectionFactory _connectionFactory;
+    private readonly ConnectionFactory _connectionFactory;
 
     public MessageBroker(ConnectionFactory connectionFactory)
     {

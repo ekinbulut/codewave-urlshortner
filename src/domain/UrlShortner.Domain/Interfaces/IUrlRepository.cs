@@ -1,6 +1,6 @@
 using UrlShortner.Domain.Entities;
 
-namespace UrlShortner.Application.Interfaces;
+namespace UrlShortner.Domain.Interfaces;
 
 public interface IUrlRepository
 {
